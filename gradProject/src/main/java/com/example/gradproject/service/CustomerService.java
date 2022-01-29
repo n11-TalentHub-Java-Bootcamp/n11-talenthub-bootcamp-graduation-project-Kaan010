@@ -37,12 +37,6 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerCRUDException("Customer could not fount with id " + id));
     }
 
-    //used by another service
-    protected Optional<Customer> getCustomer(String id) {
-        return customerRepository.findById(id);
-    }
-
-
     public CustomerDto createCustomer(CustomerRequest customerRequest) {
         return Optional.of(customerRequest)
                 .map(customerDtoConverter::convertCreateCustomerRequestToCustomer)
@@ -82,4 +76,10 @@ public class CustomerService {
     public void deleteCustomerById(String id) {
         customerRepository.deleteById(id);
     }
+
+    //used by another service
+    protected Optional<Customer> getCustomer(String id) {
+        return customerRepository.findById(id);
+    }
+
 }
