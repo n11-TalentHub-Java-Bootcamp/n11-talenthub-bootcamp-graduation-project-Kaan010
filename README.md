@@ -63,5 +63,8 @@ Host: localhost:8080
 }
 ````
 
+##Sample SMS
+![IMG_0739](https://user-images.githubusercontent.com/68256356/151723069-7f8a2825-d374-48f0-ba58-b32f8690e6ea.PNG)
+
 
 
