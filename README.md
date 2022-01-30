@@ -1,6 +1,6 @@
 # n11-talenthub-bootcamp-graduation-project
 
-<img width="490" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151723187-70a46472-b2b3-48cb-b71f-eb736d6d10b2.png">
+<div style="text-align:center"><img width="600" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151723187-70a46472-b2b3-48cb-b71f-eb736d6d10b2.png">
 
 
 This app takes customer information and gives opportunity to apply credit application. The applications result calculated by given algorithm and result is sent via SMS to phone number.
