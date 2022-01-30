@@ -13,8 +13,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,6 +27,8 @@ class CustomerControllerIT extends IntegrationTestSupport {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.id", is(customerSaved.getId())));
+
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -35,6 +36,8 @@ class CustomerControllerIT extends IntegrationTestSupport {
         this.mockMvc.perform(get("/v1/customer/filter/" + "not-exist-identity")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -60,6 +63,8 @@ class CustomerControllerIT extends IntegrationTestSupport {
 
         List<Customer> createdCustomer = customerRepository.findAll();
         assertEquals(1, createdCustomer.size());
+
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -80,6 +85,8 @@ class CustomerControllerIT extends IntegrationTestSupport {
 
         List<Customer> createdCustomer = customerRepository.findAll();
         assertEquals(0, createdCustomer.size());
+
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -104,16 +111,18 @@ class CustomerControllerIT extends IntegrationTestSupport {
                 LocalDate.of(1999, 12, 30),
                 2000
         );
-        this.mockMvc.perform(post("/v1/customer/"+updateCustomer.getIdentityNumber())
+        this.mockMvc.perform(put("/v1/customer/"+updateCustomer.getIdentityNumber())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writer().withDefaultPrettyPrinter().writeValueAsString(updateCustomer)))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.name", is(updateCustomer.getName())))
                 .andExpect(jsonPath("$.surName", is(updateCustomer.getSurName())))
                 .andExpect(jsonPath("$.salary", is(updateCustomer.getSalary())))
-                .andExpect(jsonPath("$.telephone", is(updateCustomer.getTelephone())))
-                .andExpect(jsonPath("$.birthDate", is(updateCustomer.getBirthDate())));
+                .andExpect(jsonPath("$.telephone", is(updateCustomer.getTelephone())));
         List<Customer> createdCustomer = customerRepository.findAll();
         assertEquals(1, createdCustomer.size());
+
+        customerRepository.deleteAll();
+
     }
 }

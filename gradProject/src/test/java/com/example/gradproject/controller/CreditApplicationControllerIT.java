@@ -34,6 +34,7 @@ class CreditApplicationControllerIT extends IntegrationTestSupport {
         List<CreditApplication> allCredits = creditApplicationRepository.findAll();
         assertEquals(1, allCredits.size());
 
+
     }
 
     @Test
