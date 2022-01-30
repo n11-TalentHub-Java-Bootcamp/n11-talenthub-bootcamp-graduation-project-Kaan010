@@ -12,6 +12,7 @@ import com.example.gradproject.model.CreditResult;
 import com.example.gradproject.model.Customer;
 import com.example.gradproject.repository.CreditApplicationRepository;
 import com.example.gradproject.util.CreditResultCalculatorUtil;
+import com.twilio.exception.ApiException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -42,18 +43,31 @@ public class CreditApplicationService {
             Customer customer = applicant.get();
             CreditApplication creditApplication = getNewCreditApplication(customer);
             creditApplicationRepository.save(creditApplication);
-            sendSMS(
+            try{sendSMS(
                     new SmsRequest(
                             creditApplication.getCustomerTelephoneNo(),
-                            "\nDear "+customer.getName()+" "+customer.getSurName()+",\n"+
-                            "Your credit application has been announced. " +
-                                    (creditApplication.getCreditResult().equals(CreditResult.DENIED) ?
-                                            ("We are sorry to say that your application has been rejected.") :
-                                            ("We are happy to say that your application has been approved. Your limit is " + creditApplication.getCreditLimit())
-                                                    + "Have a good days. sent from n11.com by Kaan Kalan.")
+                            getMessage(customer, creditApplication)
                     ));
+            }
+            catch (ApiException e){
+                System.err.println("Message could not sent because telephone number not validated by admin. Pls contact with Kaan Kalan");
+                System.err.println("Your message is:");
+                System.out.println(getMessage(customer, creditApplication)
+                );
+            }
+
             return CreditApplicationDtoConverter.convertCreditApplicationToCreditApplicationDto(creditApplication);
         } else throw new CreditApplicationCRUDException("Credit Application could not created");
+    }
+
+    @NotNull
+    private String getMessage(Customer customer, CreditApplication creditApplication) {
+        return "\nDear " + customer.getName() + " " + customer.getSurName() + ",\n" +
+                "Your credit application has been announced. " +
+                (creditApplication.getCreditResult().equals(CreditResult.DENIED) ?
+                        ("We are sorry to say that your application has been rejected.") :
+                        ("We are happy to say that your application has been approved. Your limit is " + creditApplication.getCreditLimit())
+                                + "Have a good days. sent from n11.com by Kaan Kalan.");
     }
 
     @NotNull
