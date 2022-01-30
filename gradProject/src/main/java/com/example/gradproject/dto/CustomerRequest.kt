@@ -20,5 +20,5 @@ data class CustomerRequest @JvmOverloads constructor(
         @field:NotNull(message = "the birthDate value must not be empty or null")
         val birthDate: LocalDate,
         @JsonInclude(JsonInclude.Include.NON_EMPTY) //assurance bos ise Json'da gosterme
-        val assurance: Int
+        val assurance: Int?
 ): RepresentationModel<CustomerRequest>()
