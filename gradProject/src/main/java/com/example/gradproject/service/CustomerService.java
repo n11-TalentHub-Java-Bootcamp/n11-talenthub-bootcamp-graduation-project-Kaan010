@@ -9,10 +9,12 @@ import com.example.gradproject.repository.CustomerRepository;
 import com.example.gradproject.util.CreditNoteUtil;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class CustomerService {
 
@@ -57,8 +59,8 @@ public class CustomerService {
 
     }
 
-    public CustomerDto updateCustomerById(String id, CustomerRequest customerDto) {
-        Optional<Customer> customerOptional = customerRepository.findById(id);
+    public CustomerDto updateCustomerByIdentity(Long identity, CustomerRequest customerDto) {
+        Optional<Customer> customerOptional = customerRepository.findCustomerByIdentityNumber(identity);
         customerOptional.ifPresent(customer -> {
                     customer = new Customer(
                             customer.getId(),
@@ -79,8 +81,8 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerCRUDException("Customer could not created"));
     }
 
-    public void deleteCustomerById(String id) {
-        customerRepository.deleteById(id);
+    public void deleteCustomerByIdentity(Long identity) {
+        customerRepository.deleteCustomerByIdentityNumber(identity);
     }
 
     //used by another service
