@@ -33,7 +33,7 @@ public class CreditApplicationController {
 
 
     @GetMapping(value = "/customer")
-    public ResponseEntity<CreditApplicationDto> getAllCreditApplications(@Valid @RequestBody CreditApplicationRequest creditApplicationRequest) {
+    public ResponseEntity<CreditApplicationDto> getCreditApplicationsById(@Valid @RequestBody CreditApplicationRequest creditApplicationRequest) {
         return new ResponseEntity<>(
                 creditApplicationService.getCreditByIdentityNumberAndBirthDate(creditApplicationRequest),
                 HttpStatus.OK

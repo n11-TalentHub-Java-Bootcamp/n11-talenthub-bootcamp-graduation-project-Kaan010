@@ -13,6 +13,7 @@ import com.example.gradproject.model.Customer;
 import com.example.gradproject.repository.CreditApplicationRepository;
 import com.example.gradproject.util.CreditResultCalculatorUtil;
 import com.twilio.exception.ApiException;
+import io.swagger.annotations.Api;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -33,40 +34,39 @@ public class CreditApplicationService {
         this.creditApplicationRepository = creditApplicationRepository;
     }
 
-    private void sendSMS(SmsRequest smsRequest) {
-        smsService.sendSms(smsRequest);
-    }
-
     public CreditApplicationDto createCreditApplicationForCustomer(String customerId) {
         Optional<Customer> applicant = customerService.getCustomer(customerId);
         if (applicant.isPresent()) {
             Customer customer = applicant.get();
             CreditApplication creditApplication = getNewCreditApplication(customer);
             creditApplicationRepository.save(creditApplication);
-            try{sendSMS(
+            try{smsService.sendSms(
                     new SmsRequest(
                             creditApplication.getCustomerTelephoneNo(),
                             getMessage(customer, creditApplication)
                     ));
+                System.out.println("SMS Notification has been sent. Have a nice days. n11.com");
             }
             catch (ApiException e){
-                System.err.println("Message could not sent because telephone number not validated by admin. Pls contact with Kaan Kalan");
-                System.err.println("Your message is:");
-                System.out.println(getMessage(customer, creditApplication)
-                );
+                printLogInforForNotValidatedTelephoneNumber();
+                System.out.print(getMessage(customer, creditApplication));
             }
-
             return CreditApplicationDtoConverter.convertCreditApplicationToCreditApplicationDto(creditApplication);
         } else throw new CreditApplicationCRUDException("Credit Application could not created");
+    }
+
+    private void printLogInforForNotValidatedTelephoneNumber() {
+        System.err.println("Message could not sent because telephone number not validated by admin. Pls contact with Kaan Kalan");
+        System.err.print("Your message is:");
     }
 
     @NotNull
     private String getMessage(Customer customer, CreditApplication creditApplication) {
         return "\nDear " + customer.getName() + " " + customer.getSurName() + ",\n" +
                 "Your credit application has been announced. " +
-                (creditApplication.getCreditResult().equals(CreditResult.DENIED) ?
+                ((creditApplication.getCreditResult().equals(CreditResult.DENIED) ?
                         ("We are sorry to say that your application has been rejected.") :
-                        ("We are happy to say that your application has been approved. Your limit is " + creditApplication.getCreditLimit())
+                        ("We are happy to say that your application has been approved. Your limit is " + creditApplication.getCreditLimit()))
                                 + "Have a good days. sent from n11.com by Kaan Kalan.");
     }
 
