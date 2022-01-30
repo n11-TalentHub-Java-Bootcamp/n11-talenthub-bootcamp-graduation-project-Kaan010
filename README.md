@@ -53,6 +53,15 @@ POST /v1/credit/apply/18800000010
 Host: localhost:8080
 ````
 
+#### Get Credit Applications By Customer IdentityNumber and Birthday
+````
+GET /v1/credit/customer
+Host: localhost:8080
+{
+            "customerIdentityNumber": 18800000501,
+            "customerBirthDate": "1996-02-10"
+}
+````
 
 
 
