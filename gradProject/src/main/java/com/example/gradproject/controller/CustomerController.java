@@ -38,7 +38,7 @@ public class CustomerController {
         );
     }
 
-    @GetMapping(value = "identity/{identity}")
+    @GetMapping(value = "filter/{identity}")
     public ResponseEntity<CustomerDto> getCustomerByIdentity(@PathVariable Long identity) {
         return new ResponseEntity<>(
                 customerService.getCustomerByIdentity(identity),
