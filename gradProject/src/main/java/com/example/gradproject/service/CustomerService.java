@@ -31,10 +31,16 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
+    public CustomerDto getCustomerByIdentity(Long identity){
+        return customerRepository.findCustomerByIdentityNumber(identity)
+                .map(customerDtoConverter::convertCustomerToCustomerDto)
+                .orElseThrow(()-> new CustomerCRUDException("Customer could not found with identity " + identity));
+    }
+
     public CustomerDto getCustomerById(String id) {
         return customerRepository.findById(id)
                 .map(customerDtoConverter::convertCustomerToCustomerDto)
-                .orElseThrow(() -> new CustomerCRUDException("Customer could not fount with id " + id));
+                .orElseThrow(() -> new CustomerCRUDException("Customer could not found with id " + id));
     }
 
     public CustomerDto createCustomer(CustomerRequest customerRequest) {
