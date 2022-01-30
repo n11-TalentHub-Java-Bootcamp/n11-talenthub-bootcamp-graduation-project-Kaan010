@@ -20,14 +20,12 @@ class CustomerControllerIT extends IntegrationTestSupport {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.id", is(customerSaved.getId())));
-
-
     }
 
     @Test
     public void testGetCustomerByIdentityNumber_whenCustomerIdExist_shouldReturnBadRequest() throws Exception {
         this.mockMvc.perform(get("/v1/customer/filter/" + "not-exist-identity")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isExpectationFailed());
+                .andExpect(status().isBadRequest());
     }
 }

@@ -5,7 +5,7 @@ import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
-@Table(name = "customer", schema = "gradProject")
+@Table(name = "customer")
 class Customer @JvmOverloads constructor(
         @Id
         @Column(name = "customer_id")

@@ -5,7 +5,7 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(name = "credit_application", schema = "gradProject")
+@Table(name = "credit_application")
 
 data class CreditApplication (
     @EmbeddedId
