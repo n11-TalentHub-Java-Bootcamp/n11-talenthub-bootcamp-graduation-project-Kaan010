@@ -8,7 +8,7 @@ import javax.persistence.*
 @Table(name = "customer", schema = "gradProject")
 class Customer @JvmOverloads constructor(
         @Id
-        @Column(name = "actor_id")
+        @Column(name = "customer_id")
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         val id: String? = "",
