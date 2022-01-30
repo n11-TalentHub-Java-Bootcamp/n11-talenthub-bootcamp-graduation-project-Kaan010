@@ -18,8 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 
 class CreditApplicationServiceTest extends TestSupport {
 
@@ -39,14 +38,14 @@ class CreditApplicationServiceTest extends TestSupport {
 
     @Test
     void testCreateCreditApplicationForCustomer_whenCustomerNotExist_ShouldThrowCreditApplicationCRUDException() {
-        String customerId = "0";
+        Long customerIdentityNo = 0L;
 
-        Mockito.when(customerService.getCustomer(customerId)).thenReturn(Optional.empty());
+        Mockito.when(customerService.getCustomer(customerIdentityNo)).thenReturn(Optional.empty());
 
         assertThrows(CreditApplicationCRUDException.class,
-                () -> creditApplicationService.createCreditApplicationForCustomer(customerId));
+                () -> creditApplicationService.createCreditApplicationForCustomer(customerIdentityNo));
 
-        Mockito.verify(customerService).getCustomer(anyString());
+        Mockito.verify(customerService).getCustomer(anyLong());
         Mockito.verifyNoInteractions(smsService);
         Mockito.verifyNoInteractions(creditApplicationRepository);
     }
@@ -60,16 +59,16 @@ class CreditApplicationServiceTest extends TestSupport {
         Customer customer = getCustomer();
         CreditApplication creditApplication = getCreditApplication(customer);
 
-        Mockito.when(customerService.getCustomer(anyString())).thenReturn(Optional.of(customer));
+        Mockito.when(customerService.getCustomer(anyLong())).thenReturn(Optional.of(customer));
         Mockito.when(creditApplicationRepository.save(creditApplication)).thenReturn(creditApplication);
         Mockito.when(smsService.sendSms(any(SmsRequest.class))).thenThrow(ApiException.class);
 
-        creditApplicationService.createCreditApplicationForCustomer(anyString());
+        creditApplicationService.createCreditApplicationForCustomer(anyLong());
         String expectedLog = "Message could not sent because telephone number not validated by admin. Pls contact with Kaan Kalan\n" +
                 "Your message is:";
         assertEquals(expectedLog, errContent.toString());
 
-        Mockito.verify(customerService).getCustomer(anyString());
+        Mockito.verify(customerService).getCustomer(anyLong());
         Mockito.verify(creditApplicationRepository).save(any(CreditApplication.class));
         Mockito.verify(smsService).sendSms(any(SmsRequest.class));
     }
@@ -85,17 +84,17 @@ class CreditApplicationServiceTest extends TestSupport {
         Customer customer = getCustomer();
         CreditApplication creditApplication = getCreditApplication(customer);
 
-        Mockito.when(customerService.getCustomer(anyString())).thenReturn(Optional.of(customer));
+        Mockito.when(customerService.getCustomer(anyLong())).thenReturn(Optional.of(customer));
         Mockito.when(creditApplicationRepository.save(creditApplication)).thenReturn(creditApplication);
         Mockito.when(smsService.sendSms(any(SmsRequest.class))).thenReturn(true);
 
-        creditApplicationService.createCreditApplicationForCustomer(anyString());
+        creditApplicationService.createCreditApplicationForCustomer(anyLong());
         String expectedErrLog = "";
         assertEquals(expectedErrLog, errContent.toString());
         String expectedOutLog = "SMS Notification has been sent. Have a nice days. n11.com\n";
         assertEquals(expectedOutLog, outContent.toString());
 
-        Mockito.verify(customerService).getCustomer(anyString());
+        Mockito.verify(customerService).getCustomer(anyLong());
         Mockito.verify(creditApplicationRepository).save(any(CreditApplication.class));
         Mockito.verify(smsService).sendSms(any(SmsRequest.class));
     }

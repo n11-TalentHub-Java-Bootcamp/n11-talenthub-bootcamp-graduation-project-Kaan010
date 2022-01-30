@@ -34,8 +34,8 @@ public class CreditApplicationService {
         this.creditApplicationRepository = creditApplicationRepository;
     }
 
-    public CreditApplicationDto createCreditApplicationForCustomer(String customerId) {
-        Optional<Customer> applicant = customerService.getCustomer(customerId);
+    public CreditApplicationDto createCreditApplicationForCustomer(Long customerIdentity) {
+        Optional<Customer> applicant = customerService.getCustomer(customerIdentity);
         if (applicant.isPresent()) {
             Customer customer = applicant.get();
             CreditApplication creditApplication = getNewCreditApplication(customer);

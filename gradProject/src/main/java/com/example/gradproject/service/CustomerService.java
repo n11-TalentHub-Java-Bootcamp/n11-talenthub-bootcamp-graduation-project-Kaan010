@@ -86,8 +86,8 @@ public class CustomerService {
     }
 
     //used by another service
-    protected Optional<Customer> getCustomer(String id) {
-        return customerRepository.findById(id);
+    protected Optional<Customer> getCustomer(Long identity) {
+        return customerRepository.findCustomerByIdentityNumber(identity);
     }
 
 }

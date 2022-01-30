@@ -47,5 +47,12 @@ DELETE /v1/customer/18800000010
 Host: localhost:8080
 ````
 
+#### Apply Credit with Customer IdentityNumber
+````
+POST /v1/credit/apply/18800000010
+Host: localhost:8080
+````
+
+
 
 

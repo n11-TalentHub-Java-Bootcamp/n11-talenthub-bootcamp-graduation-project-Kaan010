@@ -3,7 +3,6 @@ package com.example.gradproject.controller;
 
 import com.example.gradproject.dto.CreditApplicationDto;
 import com.example.gradproject.dto.CreditApplicationRequest;
-import com.example.gradproject.model.CreditApplication;
 import com.example.gradproject.service.CreditApplicationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +39,10 @@ public class CreditApplicationController {
         );
     }
 
-    @PostMapping(value = "/apply/{customerId}")
-    public ResponseEntity<CreditApplicationDto> createCreditApplicationForCustomer(@PathVariable String customerId) {
+    @PostMapping(value = "/apply/{customerIdentityNo}")
+    public ResponseEntity<CreditApplicationDto> createCreditApplicationForCustomer(@PathVariable Long customerIdentityNo) {
         return new ResponseEntity<>(
-                creditApplicationService.createCreditApplicationForCustomer(customerId),
+                creditApplicationService.createCreditApplicationForCustomer(customerIdentityNo),
                 HttpStatus.CREATED
         );
     }
