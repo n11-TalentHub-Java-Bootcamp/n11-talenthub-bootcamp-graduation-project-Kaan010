@@ -1,8 +1,6 @@
   # ***n11-talenthub-bootcamp-graduation-project***
 
-<p align="center">
-<img width="600" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151723840-a24ccd38-0d74-44e2-9d81-42cc068123ee.PNG">
-</p>
+
 
 
 This app takes customer information and gives opportunity to apply credit application. The applications result calculated by given algorithm and result is sent via SMS to phone number.
@@ -69,7 +67,7 @@ Host: localhost:8080
 ````
 
 ##Sample SMS
-![IMG_0739]"https://user-images.githubusercontent.com/68256356/151723069-7f8a2825-d374-48f0-ba58-b32f8690e6ea.PNG" width=50% height=50%>
-
-
+<p align="center">
+<img width="300" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151723840-a24ccd38-0d74-44e2-9d81-42cc068123ee.PNG">
+</p>
 
