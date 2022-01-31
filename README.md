@@ -2,8 +2,27 @@
 
 
 
+This app takes customer information and gives opportunity to apply credit application. The applications result calculated by given algorithm and result is sent via SMS to customers phone number.
 
-This app takes customer information and gives opportunity to apply credit application. The applications result calculated by given algorithm and result is sent via SMS to phone number.
+#### Tech Stack
+
+* Java 11
+* Spring Boot
+* Spring Data JPA
+* Kotlin 1.5.0
+* Flyway
+* PostgreSQL  (for real DB)
+* H2 Database (for test DB)
+* JUnit 5
+* Twilio API (to send SMS)
+
+#### Features
+* OpenAPI documentation
+* Exception Handling
+* Validation
+* Unit Tests of Service and Integration Tests (for important bussiness logics)
+
+
 ### Endpoints:
 
 #### Create Customer
@@ -71,4 +90,8 @@ Host: localhost:8080
 <p align="center">
 <img width="300" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151723840-a24ccd38-0d74-44e2-9d81-42cc068123ee.PNG">
 </p>
+
+
+### Swagger UI will be run on this url
+http://localhost:${PORT}/swagger-ui.html
 
