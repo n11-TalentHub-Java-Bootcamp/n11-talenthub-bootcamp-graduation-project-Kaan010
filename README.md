@@ -66,7 +66,8 @@ Host: localhost:8080
 }
 ````
 
-##Sample SMS
+### Sample SMS
+
 <p align="center">
 <img width="300" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151723840-a24ccd38-0d74-44e2-9d81-42cc068123ee.PNG">
 </p>
