@@ -4,6 +4,10 @@
 
 This app takes customer information and gives opportunity to apply credit application. The applications result calculated by given algorithm and result is sent via SMS to customers phone number.
 
+<p align="center">
+<img width="500" alt="Ekran Resmi 2022-01-31 02 43 13" src="https://user-images.githubusercontent.com/68256356/151762295-61aafaac-a329-43f7-a99c-0d13f0d25315.PNG">
+</p>
+
 #### Tech Stack
 
 * Java 11
