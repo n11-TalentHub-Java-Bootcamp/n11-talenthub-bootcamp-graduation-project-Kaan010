@@ -1,5 +1,5 @@
-##<p align="center">
-     n11-talenthub-bootcamp-graduation-project
+<p align="center">
+     ## n11-talenthub-bootcamp-graduation-project
 </p>
 
 <p align="center">
